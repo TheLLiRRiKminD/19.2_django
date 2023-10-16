@@ -8,14 +8,38 @@
 <body>
 <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <a href="/contacts"
+           class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
             <span class="fs-4">Контактная информация</span>
         </a>
 
         <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Домашняя страница</a></li>
+            <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Домашняя страница</a></li>
         </ul>
     </header>
+</div>
+<div class="col-3">
+    <div class="card mb-4 rounded-3 shadow-sm">
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1"
+                           aria-describedby="emailHelp" name="email">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword" class="form-label">Имя</label>
+                    <input type="text" class="form-control" id="exampleInputPassword" name="name">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputmessege" class="form-label">Сообщение</label>
+                    <textarea class="form-control" id="exampleInputmessege" name="message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>
