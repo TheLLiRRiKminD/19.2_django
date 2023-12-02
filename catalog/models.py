@@ -6,7 +6,6 @@ NULLABLE = {'blank': True, 'null': True}
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name='Наименование')
     description = models.TextField(verbose_name='описание', **NULLABLE)
-    created_at = models.DateField(verbose_name='дата создания', auto_now_add=True)
 
 
 class Product(models.Model):
