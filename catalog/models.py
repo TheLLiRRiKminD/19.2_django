@@ -7,6 +7,13 @@ class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name='Наименование')
     description = models.TextField(verbose_name='описание', **NULLABLE)
 
+    def __str__(self):
+        return f'{self.name}'
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
 
 class Product(models.Model):
     name = models.CharField(max_length=50, verbose_name='Наименование')
@@ -16,3 +23,10 @@ class Product(models.Model):
     purchase_price = models.FloatField(verbose_name='цена за покупку')
     date_of_creation = models.DateField(verbose_name='дата создания', auto_now_add=True)
     last_modified_date = models.DateField(verbose_name='дата последнего изменения', auto_now=True)
+
+    def __str__(self):
+        return f'{self.name} {self.description} {self.purchase_price} '
+
+    class Meta:
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
