@@ -1,1 +1,1 @@
-# 19.2 Djando app
+# Djando app
