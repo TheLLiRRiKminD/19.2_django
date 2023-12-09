@@ -1,22 +1,20 @@
 from django.shortcuts import render
+from django.views.generic import ListView
 
 from catalog.models import Product
 
 
 # Create your views here.
 
-def home(request):
-    product_list = Product.objects.all()
-    context ={
-        'object_list': product_list
-    }
-    return render(request, 'catalog/home.html', context)
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/home.html'
 
 
 def contacts(request):
     if request.method == "POST":
-        email = request.POST.get("email")
+        phone = request.POST.get("phone")
         name = request.POST.get("name")
         message = request.POST.get("message")
-        print(f"{name} ({email}): {message}")
+        print(f"{name} ({phone}): {message}")
     return render(request, 'catalog/contacts.html')
