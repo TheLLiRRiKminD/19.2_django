@@ -2,11 +2,8 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from pytils.translit import slugify
-
 from blog.models import BlogWriter
 
-
-# Create your views here.
 
 class BlogCreateView(CreateView):
     model = BlogWriter
@@ -14,6 +11,7 @@ class BlogCreateView(CreateView):
     success_url = reverse_lazy('blog:list')
 
     def form_valid(self, form):
+        print(type(form))
         if form.is_valid():
             new_note = form.save()
             new_note.slug = slugify(new_note.title)
@@ -25,7 +23,6 @@ class BlogCreateView(CreateView):
 class BlogUpdateView(UpdateView):
     model = BlogWriter
     fields = ('title', 'content', 'image',)
-    # success_url = reverse_lazy('blog:list')
 
     def form_valid(self, form):
         if form.is_valid():

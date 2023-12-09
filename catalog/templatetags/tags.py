@@ -4,5 +4,8 @@ register = template.Library()
 
 # Создание тега
 @register.simple_tag
-def mediapath():
-    return "/media/"
+def mediapath(value):
+    if value:
+        return f"/media/{value}"
+    else:
+        return ''

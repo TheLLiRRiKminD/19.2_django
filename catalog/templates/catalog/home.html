@@ -1,4 +1,5 @@
 {% extends 'catalog/base.html' %}
+{% load tags %}
 {% block content %}
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
         <h1 class="display-4">Skystore</h1>
@@ -17,7 +18,7 @@
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">$ {{ object.purchase_price }}</h1>
                     <ul class="list-unstyled mt-3 mb-4 text-center m-3">
-                        <img src="/media/{{ object.image }}"/>
+                        <img src="{% mediapath object.image %}"/>
                         <li>{{ object.description }}</li>
                     </ul>
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
