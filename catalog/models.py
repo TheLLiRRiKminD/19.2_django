@@ -31,6 +31,10 @@ class Product(models.Model):
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
 
+    @property
+    def active_version(self):
+        return self.version_set.get(version_flag=True)
+
 
 class Version(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -44,3 +48,4 @@ class Version(models.Model):
     class Meta:
         verbose_name = 'Версия'
         verbose_name_plural = 'Версии'
+

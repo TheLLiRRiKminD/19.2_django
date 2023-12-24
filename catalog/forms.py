@@ -13,7 +13,7 @@ class ProductForm(forms.ModelForm):
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = 'form-control'
 
-    def clean_category(self):
+    def clean_name(self):
         name = self.cleaned_data['name']
         if name in ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']:
             raise forms.ValidationError('Нельзя добавлять продукты с таким названием')
@@ -28,4 +28,5 @@ class VersionForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+            if field_name != 'version_flag':
+                field.widget.attrs['class'] = 'form-control'
