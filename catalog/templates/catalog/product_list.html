@@ -9,56 +9,62 @@
             продать</p>
     </div>
     {% if user.is_authenticated %}
-        <div class="container">
-            <div class="row text-center">
-                <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:create' %}">
-                    Добавить товар
-                </a>
+        {% if perms.catalog.add_product %}
+            <div class="container">
+                <div class="row text-center">
+                    <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:create' %}">
+                        Добавить товар
+                    </a>
+                </div>
             </div>
-        </div>
+        {% endif %}
     {% endif %}
     {% for object in object_list %}
-        <div class="container">
-        <div class="row text-center">
+        {% if object.is_active %}
+            <div class="container">
+            <div class="row text-center">
 
-            <div class="card mb-4 box-shadow">
-                <div class="row">
-                    <div class="card-header">
-                        <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
+                <div class="card mb-4 box-shadow">
+                    <div class="row">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal">{{ object.name }}</h4>
+                        </div>
+                        <div class="card">
+                            <h4 class="my-0 font-weight-normal">Активная версия товара -
+                                {% if object.active_version %}
+                                    {{ object.active_version.name_version }}
+                                {% endif %}
+                            </h4>
+                        </div>
                     </div>
-                    <div class="card">
-                        <h4 class="my-0 font-weight-normal">Активная версия товара -
-                            {% if object.active_version %}
-                                {{ object.active_version.name_version }}
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title">$ {{ object.purchase_price }}</h1>
+                        <ul class="list-unstyled mt-3 mb-4 text-center m-3">
+                            <img src="{% mediapath object.image %}"/>
+                            <li>{{ object.description }}</li>
+                        </ul>
+                        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                    </div>
+                    <div class="card-footer">
+                        <h4 class="my-0 font-weight-normal"></h4>
+
+                    </div>
+                    <div class="btn-group">
+                        <a href="{% url 'catalog:view' object.pk %}"
+                           class="btn btn-sm btn-outline-secondary">View</a>
+                        {% if user.is_authenticated %}
+                            {% if object.created_by == user %}
+                                <a href="{% url 'catalog:edit' object.pk %}"
+                                   class="btn btn-sm btn-outline-secondary">Edit</a>
+                                <a href="{% url 'catalog:delete' object.pk %}"
+                                   class="btn btn-sm btn-outline-danger">Delete</a>
                             {% endif %}
-                        </h4>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="card-body">
-                    <h1 class="card-title pricing-card-title">$ {{ object.purchase_price }}</h1>
-                    <ul class="list-unstyled mt-3 mb-4 text-center m-3">
-                        <img src="{% mediapath object.image %}"/>
-                        <li>{{ object.description }}</li>
-                    </ul>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
-                </div>
-                <div class="card-footer">
-                    <h4 class="my-0 font-weight-normal"></h4>
 
-                </div>
-                <div class="btn-group">
-                    <a href="{% url 'catalog:view' object.pk %}"
-                       class="btn btn-sm btn-outline-secondary">View</a>
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'catalog:edit' object.pk %}"
-                       class="btn btn-sm btn-outline-secondary">Edit</a>
-                    <a href="{% url 'catalog:delete' object.pk %}"
-                       class="btn btn-sm btn-outline-danger">Delete</a>
-                    {% endif %}
-                </div>
             </div>
-
-        </div>
+        {% endif %}
     {% endfor %}
 
 {% endblock %}

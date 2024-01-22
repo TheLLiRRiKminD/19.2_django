@@ -26,6 +26,7 @@ class Product(models.Model):
     date_of_creation = models.DateField(verbose_name='дата создания', auto_now_add=True)
     last_modified_date = models.DateField(verbose_name='дата последнего изменения', auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=False, verbose_name='Публикация')
 
     def __str__(self):
         return f'{self.name} {self.description} {self.purchase_price} '

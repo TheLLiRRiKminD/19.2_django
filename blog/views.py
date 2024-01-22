@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
@@ -35,7 +36,7 @@ class BlogUpdateView(UpdateView):
         return reverse('blog:view', args=[self.kwargs.get('pk')])
 
 
-class BlogListView(ListView):
+class BlogListView(LoginRequiredMixin, ListView):
     model = BlogWriter
 
     def get_queryset(self, *args, **kwargs):
