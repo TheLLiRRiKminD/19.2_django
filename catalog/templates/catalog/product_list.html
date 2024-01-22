@@ -9,15 +9,15 @@
             продать</p>
     </div>
     {% if user.is_authenticated %}
-        {% if perms.catalog.add_product %}
-            <div class="container">
-                <div class="row text-center">
-                    <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:create' %}">
-                        Добавить товар
-                    </a>
-                </div>
+
+        <div class="container">
+            <div class="row text-center">
+                <a class="btn btn-lg btn-block btn-outline-primary" href="{% url 'catalog:create' %}">
+                    Добавить товар
+                </a>
             </div>
-        {% endif %}
+        </div>
+
     {% endif %}
     {% for object in object_list %}
         {% if object.is_active %}
@@ -53,17 +53,19 @@
                         <a href="{% url 'catalog:view' object.pk %}"
                            class="btn btn-sm btn-outline-secondary">View</a>
                         {% if user.is_authenticated %}
-                            {% if object.created_by == user %}
+                            {% if perms.catalog.add_product or object.created_by == user %}
+
                                 <a href="{% url 'catalog:edit' object.pk %}"
                                    class="btn btn-sm btn-outline-secondary">Edit</a>
                                 <a href="{% url 'catalog:delete' object.pk %}"
                                    class="btn btn-sm btn-outline-danger">Delete</a>
                             {% endif %}
-                        {% endif %}
-                    </div>
-                </div>
 
-            </div>
+                            </div>
+                            </div>
+
+                            </div>
+                        {% endif %}
         {% endif %}
     {% endfor %}
 
